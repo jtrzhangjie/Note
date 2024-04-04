@@ -14,9 +14,12 @@
   - 在C++中可以声明<font color=blue>const</font>引用
   - <font color=blue>const</font> <font color=red>Type</font>& name = var;
   - <font color=blue>const</font>引用可以让变量拥有<font color=Fuchsia>只读属性</font>
+  
 ![Alt text](image-1.png)
+
   - 当使用<font color=red>常量</font>对<font color=blue>const</font>引用进行初始化时，C++编译器会为常量值分配空间，并将引用名作为这段空间的别名。
   ![Alt text](image-2.png)
+
   <font color=blue>结论：
   使用常量对const引用初始化后将生成一个只读变量！！！</font>
 
