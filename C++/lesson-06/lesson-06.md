@@ -1,6 +1,7 @@
 # 内联函数分析
 ## 常量与宏回顾
 - C++中的<font color=blue>const</font>常量可以替代宏常数定义，如：
+  
   ![Alt text](image.png)
     
   <font color=red>C++中是否有解决方案替代宏代码片段？</font>
