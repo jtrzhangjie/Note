@@ -6,3 +6,6 @@
 - [lesson04](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-04/lesson-04.md)
 - [lesson05](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-05/lesson-05.md)
 - [lesson06](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-06/lesson-06.md)
+- [lesson07](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-07/lesson-07.md)
+- [lesson08](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-08/lesson-08.md)
+- [lesson09](https://github.com/jtrzhangjie/Note/blob/main/C%2B%2B/lesson-09/lesson-09.md)
