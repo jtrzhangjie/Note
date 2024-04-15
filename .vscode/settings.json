@@ -1,7 +1,13 @@
 {
     "cSpell.words": [
         "cplusplus",
+        "istringstream",
         "malloc",
+        "ostringstream",
+        "sstream",
         "struct"
-    ]
+    ],
+    "files.associations": {
+        "sstream": "cpp"
+    }
 }
