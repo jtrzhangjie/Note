@@ -1,0 +1,18 @@
+# Build output
+build/
+cmake-build-*/
+out/
+
+# IDE
+.idea/
+.vscode/
+CMakeUserPresets.json
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local files
+*.local
+.env
