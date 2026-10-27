@@ -14,7 +14,21 @@ Windows 侧通过 SSH 访问：
 ubuntu:/home/joyce/git/note.git
 ```
 
-它没有 Web 界面，只提供 Git 传输。以后有正式 Git 服务器时，把 `origin` 换掉即可：
+Windows 仓库里已经设置了：
+
+```bash
+git config core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+```
+
+因为这台 Windows 的 Git `HOME` 指向了 Cadence 的配置目录，Git 默认不会读取 `C:\Users\Administrator\.ssh\config` 里的 `ubuntu` 别名。如果以后重新克隆时出现：
+
+```text
+ssh: Could not resolve hostname ubuntu
+```
+
+在仓库里执行上面的 `core.sshCommand` 配置即可。
+
+这个 bare 仓库没有 Web 界面，只提供 Git 传输，并且和开发机在同一块磁盘上，不适合作为唯一备份。以后有正式 Git 服务器时，把 `origin` 换掉即可：
 
 ```bash
 git remote set-url origin git@你的服务器:你的账号/note.git
