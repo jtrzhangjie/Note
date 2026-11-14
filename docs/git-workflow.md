@@ -2,58 +2,58 @@
 
 ## 当前远程
 
-当前 `origin` 是虚拟机上的 bare 仓库，作为临时 Git 远程使用：
+`origin` 是 GitHub 仓库：
 
 ```text
-/home/joyce/git/note.git
+https://github.com/jtrzhangjie/Note
 ```
 
-Windows 侧通过 SSH 访问：
+Windows 侧用 GitHub CLI 的凭据助手认证（SSH 22 端口在当前网络下不通，走 HTTPS）：
+
+```bash
+gh auth status
+gh auth setup-git
+```
+
+仓库里另外保留了一个 `vm` 远程，指向虚拟机的 bare 仓库，只用于局域网内快速同步：
 
 ```text
-ubuntu:/home/joyce/git/note.git
+vm  ubuntu:/home/joyce/git/note.git
 ```
 
-Windows 仓库里已经设置了：
+日常推送只推 `origin`：
 
 ```bash
-git config core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+git push origin main
 ```
 
-因为这台 Windows 的 Git `HOME` 指向了 Cadence 的配置目录，Git 默认不会读取 `C:\Users\Administrator\.ssh\config` 里的 `ubuntu` 别名。如果以后重新克隆时出现：
-
-```text
-ssh: Could not resolve hostname ubuntu
-```
-
-在仓库里执行上面的 `core.sshCommand` 配置即可。
-
-这个 bare 仓库没有 Web 界面，只提供 Git 传输，并且和开发机在同一块磁盘上，不适合作为唯一备份。以后有正式 Git 服务器时，把 `origin` 换掉即可：
+需要时再补推虚拟机：
 
 ```bash
-git remote set-url origin git@你的服务器:你的账号/note.git
-git push -u origin main
+git push vm main
 ```
 
-如果希望保留两个远程，也可以：
+## 内容以哪边为准
 
-```bash
-git remote add upstream git@你的服务器:你的账号/note.git
-git push -u upstream main
-```
-
-## 两个工作副本
-
-| 位置 | 用途 |
+| 位置 | 角色 |
 |---|---|
-| 虚拟机 `/home/joyce/work/note` | 写代码、构建、调试 |
-| Windows `F:\Note` | 写笔记、放截图 |
+| Windows `F:\Note` | **唯一源头**：笔记、课件、截图、示例代码都在这里整理和提交 |
+| 虚拟机 `/home/joyce/work/note` | 只用来编译、运行、验证，内容从 `origin` 拉取，不再作为代码来源 |
 
-两边都可以提交，但建议分工：
+以前虚拟机里的旧 demo（`lessons/01-basics`、`lessons/02-functions`）已经全部废弃，不再随仓库保留。课程内容以整理后的 `cpp/lessons/01-cpp-meaning`、`02-c-to-cpp`、`03-const` 为准。
 
-- 代码改动在虚拟机提交。
-- 笔记和截图在 Windows 提交。
-- `cpp/README.md` 的进度表只在一侧维护，避免冲突。
+虚拟机同步：
+
+```bash
+cd ~/work/note
+git pull
+cd cpp
+cmake --preset debug
+cmake --build --preset debug
+ctest --preset debug --output-on-failure
+```
+
+## 常用流程
 
 每次开始前：
 
@@ -66,8 +66,8 @@ git pull --rebase
 ```bash
 git status
 git add 具体文件
-git commit -m "cpp: 01 环境与 Hello World 笔记"
-git push
+git commit -m "cpp: 03 const 笔记与测试代码"
+git push origin main
 ```
 
 不要习惯性 `git add .`，尤其在有截图和构建目录时。构建目录已经被 `.gitignore` 忽略。
@@ -88,11 +88,11 @@ docs: 更新 Gateway 配置
 ## 截图
 
 - 每课截图放在 `cpp/lessons/NN-topic/images/`。
-- 文件名用英文小写和编号，例如 `01-clion-run.png`。
+- 文件名用英文小写和编号，例如 `slide-01.png`、`shot-01-const-macro-scope.png`。
 - Markdown 中用相对路径：
 
 ```markdown
-![CLion 运行结果](images/01-clion-run.png)
+![CLion 运行结果](images/shot-01-const-macro-scope.png)
 ```
 
 - 截图多到仓库明显变大时，再考虑 Git LFS。

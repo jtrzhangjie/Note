@@ -9,7 +9,7 @@
 | 主机名 | joyce-pc |
 | IP | 192.168.157.128（VMware NAT/DHCP，可能会变化） |
 | 仓库路径 | `/home/joyce/work/note` |
-| 旧工程 | `/home/joyce/course-demos`（保留作参考） |
+| 旧工程 | `/home/joyce/course-demos`（已废弃，仅留作历史参考） |
 
 如果虚拟机 IP 变化，需要同步修改 Windows 的 `~/.ssh/config` 和 Git remote。
 
@@ -85,13 +85,14 @@ CLion 使用自己的 `cmake-build-debug/` 也可以，两个构建目录互不�
 
 ## 旧工程说明
 
-`/home/joyce/course-demos` 是之前用 VS Code/CLion 验证过的工程，包含 lesson01、lesson02 的源码和 VS Code 配置。
+`/home/joyce/course-demos` 等早期工程里的 lesson01、lesson02 demo 已经全部废弃，不再迁入、也不再随仓库保留，避免和当前课程内容混淆。
 
-新仓库已经把这些 demo 迁移到：
+仓库现在只包含整理后的三节课：
 
 ```text
-cpp/lessons/01-basics/code/
-cpp/lessons/02-functions/code/
+cpp/lessons/01-cpp-meaning/
+cpp/lessons/02-c-to-cpp/
+cpp/lessons/03-const/
 ```
 
-旧工程不删除，作为对照保留。后续以 `/home/joyce/work/note` 为主。
+虚拟机只负责编译和验证，内容以 Windows 侧 `F:\Note` 提交到 GitHub 的版本为准。
