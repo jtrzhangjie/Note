@@ -5,7 +5,7 @@
 - 整理日期：2026-11-14
 - 课件：`images/slide-01.png` ～ `slide-14.png`
 - 实机截图：`images/shot-01.png` ～ `shot-06.png`
-- 测试代码：原课程提供，已整理为 `code/demo01` ～ `code/demo05`；原始片段在 `code/original/`
+- 测试代码：原课程提供，已摘取改写为 C / C++ 各一份（`code/demo01` ～ `code/demo05`）
 - 截图目录：`images/`
 
 ## 学习目标
@@ -274,16 +274,26 @@ int add(int a, int b)  { return a + b; }
 | [default_args.c](code/demo05/default_args.c) | C 中用两个函数模拟默认参数 |
 | [default_args.cpp](code/demo05/default_args.cpp) | C++ 默认参数 |
 
-## 6. 原始测试片段
+## 6. 测试代码的组织方式
 
-桌面 `lesson_02` 里的原始练习保留在 `code/original/`：
+桌面上课程给的测试文件是 `test_1.txt`、`test_2.txt`。用 `.txt` 是因为它**不属于某一种语言**：同一份源码分别用 `gcc` 和 `g++` 各编译一次，靠编译结果和运行输出看差异。
 
-| 文件 | 内容 |
-|---|---|
-| [test_1.txt](code/original/test_1.txt) | 双重循环求和 + 注释掉的 `register` 取地址实验 |
-| [test_2.txt](code/original/test_2.txt) | `struct Student` + 旧式函数 `f(i)` / `g()` + 默认参数实验 |
+仓库里不保留这种 txt，而是把每个测试摘取、改写成 **C 和 C++ 各一份**，放在同一课下并排对比：
 
-这些片段是课堂手写练习，直接编译会包含故意留下的错误；整理后的可编译版本见 `code/demo01/` ～ `code/demo05/`。
+| 原测试 | 知识点 | C 版 | C++ 版 |
+|---|---|---|---|
+| test_1.txt | register 取地址 | [register.c](code/demo01/register.c) | [register.cpp](code/demo01/register.cpp) |
+| test_1.txt | 全局变量重复定义 | [global.c](code/demo02/global.c) | [global.cpp](code/demo02/global.cpp) |
+| test_2.txt | struct 关键字 | [struct.c](code/demo03/struct.c) | [struct.cpp](code/demo03/struct.cpp) |
+| test_2.txt | 隐式类型与函数声明 | [function.c](code/demo04/function.c) | [function.cpp](code/demo04/function.cpp) |
+| 课件示例 | 默认参数 | [default_args.c](code/demo05/default_args.c) | [default_args.cpp](code/demo05/default_args.cpp) |
+
+改写原则：
+
+- C 版保留旧式写法（隐式 `int`、`struct Student`、手工补默认参数），用来体现 C 的限制。
+- C++ 版用显式类型、省略 `struct`、真正的默认参数，和 C 版一一对应。
+- 会编译失败的行写在注释里并标注错误信息，保证每个文件都能单独编译运行。
+- 每对文件都注册为独立的 CTest 用例，`ctest` 能一次跑完全部对比。
 
 ## 7. 常见面试题
 

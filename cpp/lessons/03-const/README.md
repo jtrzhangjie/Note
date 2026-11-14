@@ -5,7 +5,7 @@
 - 整理日期：2026-11-14
 - 课件：`images/slide-01.png` ～ `slide-11.png`
 - 实机截图：`images/shot-01.png` ～ `shot-03.png`
-- 测试代码：原课程提供，已整理为 `code/demo01` ～ `code/demo03`；原始片段在 `code/original/`
+- 测试代码：原课程提供，已摘取改写为 C / C++ 各一份（`code/demo01` ～ `code/demo03`）
 - 截图目录：`images/`
 
 ## 学习目标
@@ -196,16 +196,23 @@ error: variable-sized object may not be initialized
 
 C++ 则把 `A + B` 当作常量表达式，数组大小在编译期确定。
 
-## 4. 原始测试片段
+## 4. 测试代码的组织方式
 
-桌面 `lesson_03` 里的原始练习保留在 `code/original/`：
+桌面 `lesson_03` 的测试文件同样是 `.txt`：一份源码，`gcc` 和 `g++` 各编译一次。其中 `test_1.txt` 是空文件，`test_2.txt` 演示 `#define` 与 `const` 的作用域差异，并附带了注释掉的 const 数组实验。
 
-| 文件 | 内容 |
-|---|---|
-| [test_1.txt](code/original/test_1.txt) | 空文件（占位） |
-| [test_2.txt](code/original/test_2.txt) | `#define` / `const` 作用域实验 + 注释掉的 const 数组实验 |
+仓库里把它拆成按知识点组织的 **C / C++ 两份**：
 
-整理后的可编译版本见 `code/demo01/` ～ `code/demo03/`。
+| 原测试 | 知识点 | C 版 | C++ 版 |
+|---|---|---|---|
+| 课件实验 3-1 | const 取地址后修改 | [const_address.c](code/demo01/const_address.c) | [const_address.cpp](code/demo01/const_address.cpp) |
+| test_2.txt | const 与宏的作用域 | [const_macro.c](code/demo02/const_macro.c) | [const_macro.cpp](code/demo02/const_macro.cpp) |
+| test_2.txt（注释部分） | const 能否作为数组长度 | [const_array.c](code/demo03/const_array.c) | [const_array.cpp](code/demo03/const_array.cpp) |
+
+改写原则：
+
+- 两份代码尽量只保留语言差异，其余部分完全一致，方便直接对照输出。
+- C 版编译失败的地方改用 `enum` 等价实现，并把原写法留在注释里。
+- C++ 版直接写合法形式，不再需要绕开限制。
 
 ## 5. 小结
 
