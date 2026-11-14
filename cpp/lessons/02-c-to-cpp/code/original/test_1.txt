@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int g_v;
+int g_v;
+
+int main(void) {
+
+    int c = 0;
+    printf("Begin...\r\n");
+
+    for (int i = 0; i <= 3; i++) {
+        for (int j = 0; j <= 3; j++) {
+            c += i*j;
+        }
+    }
+
+    printf("c = %d\r\n", c);
+
+    // register int a = 0;
+
+    // printf("&a = %p\r\n", &a);
+
+    printf("End...\r\n");
+
+    return 0;
+}

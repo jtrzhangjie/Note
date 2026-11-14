@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+struct Student {
+    const char* name;
+    int age;
+};
+
+f(i)
+{
+    printf("i = %d\n", i);
+}
+
+g()
+{
+    return 5;
+}
+
+int main(void) {
+    // Student s1 = {"John", 20};
+    // Student s2 = {"Alice", 22};
+
+    // printf("Student 1: Name: %s, Age: %d\n", s1.name, s1.age);
+    // printf("Student 2: Name: %s, Age: %d\n", s2.name, s2.age);
+
+    f(10);
+
+    printf("g() returns: %d\n", g(1,2,3,4,5));
+
+    return 0;
+}
