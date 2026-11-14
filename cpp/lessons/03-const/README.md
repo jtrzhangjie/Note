@@ -295,7 +295,7 @@ cmake --build --preset debug --target cpp03c_const_address_c cpp03c_const_addres
   - `const_address_cpp`：第二次输出 `a = 10, *p = 20`。
   - `const_macro_c/cpp`：`g()` 中 `A = 3`，`b` 不可访问。
   - `const_array_c/cpp`：C 用 `enum` 替代，C++ 直接用 `const`。
-- 整仓 23 个测试用例全部通过（`ctest --preset debug`）。
+- 整仓 18 个测试用例全部通过（`ctest --preset debug`）。
 
 ## 8. 练习
 

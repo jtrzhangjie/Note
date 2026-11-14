@@ -379,7 +379,7 @@ C++: add(5, 3) = 8
 - 预期警告（不是错误）：
   - `function.c`：`-Wimplicit-int`、`-Wreturn-type`，对应旧式 C 的隐式 `int`。
   - `register.cpp`：`-Wregister`、`-Wextra`，对应 C++ 中对 `register` 变量取地址。
-- 整仓 23 个测试用例全部通过（`ctest --preset debug`）。
+- 整仓 18 个测试用例全部通过（`ctest --preset debug`）。
 
 ## 9. 小结
 

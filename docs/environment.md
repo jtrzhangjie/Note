@@ -77,8 +77,8 @@ ctest --preset debug --output-on-failure
 只编译一个 demo：
 
 ```bash
-cmake --build --preset debug --target cpp01_demo01
-./build/debug/bin/cpp01_demo01
+cmake --build --preset debug --target cpp02u_register_cpp
+./build/debug/bin/cpp02u_register_cpp
 ```
 
 CLion 使用自己的 `cmake-build-debug/` 也可以，两个构建目录互不影响。

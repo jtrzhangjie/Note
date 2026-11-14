@@ -40,12 +40,9 @@ cpp/
 │       ├── README.md
 │       ├── images/
 │       └── code/demo01 ~ demo03
-└── appendix/
-    ├── 01-basics/              # 早期工程构建笔记（保留）
-    └── 02-functions/           # 早期函数/多文件笔记（保留）
 ```
 
-> `appendix/` 是之前整理的 C/C++ 工程基础内容，和本课程主题不同，保留下来供查阅，不再作为主线课程编号。
+仓库只保留上面三节课，不再包含其他历史示例，避免和课程内容混淆。
 
 ## 构建方式
 
@@ -88,7 +85,7 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 当前验证状态：
 
 ```text
-23/23 tests passed
+18/18 tests passed
 ```
 
 其中：
@@ -96,7 +93,6 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 - 第 1 课补充示例：2 个 target / 2 个测试。
 - 第 2 课：10 个 target / 10 个测试。
 - 第 3 课：6 个 target / 6 个测试。
-- appendix 旧示例：5 个 target / 5 个测试。
 
 复现：
 
@@ -117,7 +113,6 @@ ctest --preset debug --output-on-failure
 | `cpp01m_` | 第 1 课（meaning） | `cpp01m_hello_c` |
 | `cpp02u_` | 第 2 课（upgrade） | `cpp02u_register_cpp` |
 | `cpp03c_` | 第 3 课（const） | `cpp03c_const_address_c` |
-| `cpp01_` / `cpp02_` | appendix 中的旧示例 | `cpp01_demo01` |
 
 ## 新增一课
 
