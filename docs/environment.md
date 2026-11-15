@@ -7,11 +7,32 @@
 | 系统 | Ubuntu 22.04.5 LTS |
 | 用户 | joyce |
 | 主机名 | joyce-pc |
-| IP | 192.168.157.128（VMware NAT/DHCP，可能会变化） |
+| IP | 192.168.157.128（静态，见下方配置） |
 | 仓库路径 | `/home/joyce/work/note` |
 | 旧工程 | `/home/joyce/course-demos`（已废弃，仅留作历史参考） |
 
-如果虚拟机 IP 变化，需要同步修改 Windows 的 `~/.ssh/config` 和 Git remote。
+静态 IP 配置在 `/etc/netplan/99-static-ens33.yaml`：
+
+```yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    ens33:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - 192.168.157.128/24
+      routes:
+        - to: default
+          via: 192.168.157.2
+      nameservers:
+        addresses: [192.168.157.2, 223.5.5.5]
+```
+
+配套的宿主设置：`C:\ProgramData\VMware\vmnetdhcp.conf` 里 VMnet8 的 DHCP 池已改成 `192.168.157.129 ~ 254`，把 `.128` 让出来，避免 DHCP 再分配同一个地址。
+
+改完用 `sudo netplan generate && sudo netplan apply` 生效。IP 固定后，`~/.ssh/config` 里的 `HostName` 不再随 DHCP 变化。
 
 ## SSH
 
@@ -128,5 +149,21 @@ powershell -ExecutionPolicy Bypass -File scripts\vm-check.ps1
 其他需要确认的点：
 
 - `VMware Network Adapter VMnet8` 是否处于 `Up`，IP 是否为 `192.168.157.1`。
-- DHCP 租约文件 `C:\ProgramData\VMware\vmnetdhcp.leases` 里是否有这台 VM 的 MAC（`00:0c:29:a7:cd:26`）。
+- 静态 IP 是 `.128`，网关 `.2`；如果客户机网络异常，先在虚拟机里看 `ip route` 是否有默认路由。
 - VS Code 连不上时先重试一次；如果还失败，执行 `Remote-SSH: Kill VS Code Server on Host` 再连。
+
+## 已知限制：虚拟机访问 GitHub 不稳定
+
+虚拟机内 `https://github.com` 经常连不上（`curl` 返回 `000`），但 `https://www.baidu.com`、`https://mirrors.aliyun.com` 正常，属于网络层面的访问限制，不是静态 IP 的问题。
+
+虚拟机里的 `origin` 指向局域网 bare 仓库，日常拉取不受影响：
+
+```text
+origin  /home/joyce/git/note.git
+```
+
+需要从虚拟机直接访问 GitHub 时，给 Git 配代理即可（Windows 侧的代理端口按实际填写）：
+
+```bash
+git config --global http.proxy http://192.168.157.1:7890
+```
