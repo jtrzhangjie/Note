@@ -117,7 +117,13 @@ Start-Service 'VMware NAT Service'
 Start-Service 'VMnetDHCP'
 ```
 
-服务起来后等几秒，客户机的 NetworkManager 会自动续租，`ping` 恢复。这台机器已经把两个服务改成 `Automatic`，避免每次恢复都要手动开。
+服务起来后等几秒，客户机的 NetworkManager 会自动续租，`ping` 恢复。这台机器已经把两个服务改成 `Automatic`，并配置了失败后自动重启。
+
+更省事的方式是直接跑仓库里的自检脚本，它会依次检查服务、VMnet8、ping、22 端口和 SSH 登录：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\vm-check.ps1
+```
 
 其他需要确认的点：
 
