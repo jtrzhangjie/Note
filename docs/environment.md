@@ -96,3 +96,31 @@ cpp/lessons/03-const/
 ```
 
 虚拟机只负责编译和验证，内容以 Windows 侧 `F:\Note` 提交到 GitHub 的版本为准。
+
+## 常见问题：挂起恢复后 SSH 连不上
+
+现象：VS Code / `ssh ubuntu` 连不上 `192.168.157.128`，`ping` 也不通，但 VMware 显示虚拟机在运行。
+
+原因：虚拟机用 NAT 模式（`ethernet0.connectionType = "nat"`）。从挂起恢复时，VMware 只恢复了虚拟网卡（日志里有 `restoring Ethernet0`），但宿主机的 **VMware NAT Service** 和 **VMnetDHCP** 没有一起启动，客户机拿不到地址、也出不去。
+
+排查：
+
+```powershell
+Get-Service 'VMware NAT Service','VMnetDHCP'
+ping 192.168.157.128
+```
+
+如果两个服务是 `Stopped`，启动即可：
+
+```powershell
+Start-Service 'VMware NAT Service'
+Start-Service 'VMnetDHCP'
+```
+
+服务起来后等几秒，客户机的 NetworkManager 会自动续租，`ping` 恢复。这台机器已经把两个服务改成 `Automatic`，避免每次恢复都要手动开。
+
+其他需要确认的点：
+
+- `VMware Network Adapter VMnet8` 是否处于 `Up`，IP 是否为 `192.168.157.1`。
+- DHCP 租约文件 `C:\ProgramData\VMware\vmnetdhcp.leases` 里是否有这台 VM 的 MAC（`00:0c:29:a7:cd:26`）。
+- VS Code 连不上时先重试一次；如果还失败，执行 `Remote-SSH: Kill VS Code Server on Host` 再连。
