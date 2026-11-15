@@ -152,18 +152,32 @@ powershell -ExecutionPolicy Bypass -File scripts\vm-check.ps1
 - 静态 IP 是 `.128`，网关 `.2`；如果客户机网络异常，先在虚拟机里看 `ip route` 是否有默认路由。
 - VS Code 连不上时先重试一次；如果还失败，执行 `Remote-SSH: Kill VS Code Server on Host` 再连。
 
-## 已知限制：虚拟机访问 GitHub 不稳定
+## 已知限制：GitHub 直连不稳定
 
-虚拟机内 `https://github.com` 经常连不上（`curl` 返回 `000`），但 `https://www.baidu.com`、`https://mirrors.aliyun.com` 正常，属于网络层面的访问限制，不是静态 IP 的问题。
+直连 `https://github.com` 时常失败（`curl` 返回 `000`、`git push` 报 `Connection was reset`），但 `https://www.baidu.com`、`https://mirrors.aliyun.com` 正常。原因是 `github.com` 的 DNS 有时会解析到不可用的地址，属于网络层面的限制。
 
-虚拟机里的 `origin` 指向局域网 bare 仓库，日常拉取不受影响：
+这台机器的系统代理在 `127.0.0.1:15490`，已验证走代理能正常访问 GitHub，所以 Windows 侧给 Git 配了作用域代理：
+
+```bash
+git config --global http.https://github.com.proxy http://127.0.0.1:15490
+```
+
+只影响 `github.com`，其他站点仍然直连。查看当前配置：
+
+```bash
+git config --global --get-regexp proxy
+```
+
+注意：代理客户端没开时 `git push` 会失败，先确认 `curl -x http://127.0.0.1:15490 -s -o NUL -w "%{http_code}" https://github.com` 返回 `200`。
+
+虚拟机内的 `origin` 指向局域网 bare 仓库，日常拉取不受影响：
 
 ```text
 origin  /home/joyce/git/note.git
 ```
 
-需要从虚拟机直接访问 GitHub 时，给 Git 配代理即可（Windows 侧的代理端口按实际填写）：
+如果要从虚拟机直接访问 GitHub，需要代理客户端允许局域网连接，然后在虚拟机里配置：
 
 ```bash
-git config --global http.proxy http://192.168.157.1:7890
+git config --global http.https://github.com.proxy http://192.168.157.1:15490
 ```
