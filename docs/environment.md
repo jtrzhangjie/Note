@@ -108,12 +108,13 @@ CLion 使用自己的 `cmake-build-debug/` 也可以，两个构建目录互不�
 
 `/home/joyce/course-demos` 等早期工程里的 lesson01、lesson02 demo 已经全部废弃，不再迁入、也不再随仓库保留，避免和当前课程内容混淆。
 
-仓库现在只包含整理后的三节课：
+仓库已整理的 C++ 课程：
 
 ```text
 cpp/lessons/01-cpp-meaning/
 cpp/lessons/02-c-to-cpp/
 cpp/lessons/03-const/
+cpp/lessons/04-bool-and-reference/
 ```
 
 虚拟机只负责编译和验证，内容以 Windows 侧 `F:\Note` 提交到 GitHub 的版本为准。

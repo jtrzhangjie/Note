@@ -40,7 +40,7 @@ git push vm main
 | Windows `F:\Note` | **唯一源头**：笔记、课件、截图、示例代码都在这里整理和提交 |
 | 虚拟机 `/home/joyce/work/note` | 只用来编译、运行、验证，内容从 `origin` 拉取，不再作为代码来源 |
 
-以前虚拟机里的旧 demo（`lessons/01-basics`、`lessons/02-functions`）已经全部废弃，不再随仓库保留。课程内容以整理后的 `cpp/lessons/01-cpp-meaning`、`02-c-to-cpp`、`03-const` 为准。
+以前虚拟机里的旧 demo（`lessons/01-basics`、`lessons/02-functions`）已经全部废弃，不再随仓库保留。已整理的课程见 [C++ 课程目录](../cpp/README.md#课程目录)。
 
 虚拟机同步：
 

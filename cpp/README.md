@@ -1,9 +1,10 @@
 # C++ 课程笔记
 
-整理自狄泰软件《C++ 深度解析》第 1～3 课，共三节独立课程：
+整理自狄泰软件《C++ 深度解析》第 1～4 课：
 
 - **第 1 课**：理论课，原课程没有测试代码；本仓库补充了一个 C/C++ 对照示例，仅用于直观对比。
-- **第 2、3 课**：原课程有测试代码，已整理为可编译的 demo，并保留桌面上的原始 `test_*.txt` 片段。
+- **第 2、3 课**：将课程测试代码按知识点整理为可编译的 demo。
+- **第 4 课**：保留原始 `.txt` 实验，另提供可运行的 C/C++ 对照 demo。
 
 每课包含：
 
@@ -18,6 +19,7 @@
 | 01 | 学习 C++ 的意义 | [笔记](lessons/01-cpp-meaning/README.md) | [补充示例](lessons/01-cpp-meaning/code) | C/C++ 关系、软件方法论、分层架构 |
 | 02 | C 到 C++ 的升级 | [笔记](lessons/02-c-to-cpp/README.md) | [code](lessons/02-c-to-cpp/code) | register、全局变量、struct、函数声明 |
 | 03 | 进化后的 const 分析 | [笔记](lessons/03-const/README.md) | [code](lessons/03-const/code) | const 的本质、符号表、const 与宏 |
+| 04 | 布尔类型和引用 | [笔记](lessons/04-bool-and-reference/README.md) | [code](lessons/04-bool-and-reference/code) | `bool` 转换、条件表达式能否赋值、引用与指针 |
 
 ## 仓库结构
 
@@ -36,13 +38,17 @@ cpp/
 │   │   ├── README.md
 │   │   ├── images/             # 课件 + 实机截图
 │   │   └── code/demo01 ~ demo05
-│   └── 03-const/
+│   ├── 03-const/
+│   │   ├── README.md
+│   │   ├── images/
+│   │   └── code/demo01 ~ demo03
+│   └── 04-bool-and-reference/
 │       ├── README.md
-│       ├── images/
-│       └── code/demo01 ~ demo03
+│       ├── images/             # 课件 slide-01 ~ slide-14
+│       └── code/               # original/ + demo01 ~ demo04
 ```
 
-仓库只保留上面三节课，不再包含其他历史示例，避免和课程内容混淆。
+早期工程的历史示例不再迁入，避免与已整理的课程混淆。
 
 ## 构建方式
 
@@ -63,11 +69,11 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 ./build/debug/bin/cpp02u_register_cpp
 ```
 
-在 CLion / Gateway 中打开仓库根目录，选择对应的 target 即可 Run / Debug。
+在 CLion / Gateway 中打开仓库的 `cpp/` 目录，选择对应的 target 即可 Run / Debug。
 
 ## 测试环境
 
-以下结果均在 Ubuntu 22.04 虚拟机上实际构建、运行验证（2026-11-14）：
+项目的 Ubuntu 22.04 虚拟机工具链如下：
 
 | 项目 | 配置 |
 |---|---|
@@ -82,17 +88,14 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 | 构建类型 | Debug（`-g`，无优化） |
 | 测试框架 | CTest |
 
-当前验证状态：
+第 01–03 课于 2026-11-14 在该环境中验证通过（18/18）；第 04 课的验证与编译诊断见[本课笔记](lessons/04-bool-and-reference/README.md#验证记录)。
 
-```text
-18/18 tests passed
-```
-
-其中：
+各课的 CMake target / CTest 数量：
 
 - 第 1 课补充示例：2 个 target / 2 个测试。
 - 第 2 课：10 个 target / 10 个测试。
 - 第 3 课：6 个 target / 6 个测试。
+- 第 4 课：8 个 target / 8 个测试；故意未通过编译的原始片段不纳入默认构建。
 
 复现：
 
@@ -113,13 +116,14 @@ ctest --preset debug --output-on-failure
 | `cpp01m_` | 第 1 课（meaning） | `cpp01m_hello_c` |
 | `cpp02u_` | 第 2 课（upgrade） | `cpp02u_register_cpp` |
 | `cpp03c_` | 第 3 课（const） | `cpp03c_const_address_c` |
+| `cpp04b_` | 第 4 课（bool and reference） | `cpp04b_conditional_lvalue_cpp` |
 
 ## 新增一课
 
 1. 新建目录：
 
    ```text
-   lessons/04-topic/
+   lessons/NN-topic/
    ├── README.md
    ├── images/
    └── code/
@@ -127,17 +131,17 @@ ctest --preset debug --output-on-failure
        └── demo01/
    ```
 
-2. 在 `lessons/04-topic/code/CMakeLists.txt` 中定义 target：
+2. 在 `lessons/NN-topic/code/CMakeLists.txt` 中定义 target：
 
    ```cmake
-   cpp_add_demo(cpp04x_demo01 demo01/main.cpp)
-   add_test(NAME cpp04x_demo01 COMMAND cpp04x_demo01)
+   cpp_add_demo(cppNNx_demo01 demo01/main.cpp)
+   add_test(NAME cppNNx_demo01 COMMAND cppNNx_demo01)
    ```
 
 3. 在顶层 `CMakeLists.txt` 中追加：
 
    ```cmake
-   add_subdirectory(lessons/04-topic/code)
+   add_subdirectory(lessons/NN-topic/code)
    ```
 
 4. 在 CLion 中执行 **Reload CMake Project**。
@@ -146,7 +150,8 @@ ctest --preset debug --output-on-failure
 
 - `images/slide-XX.png`：课程课件原图，按页码命名。
 - `images/shot-XX-*.png`：实机编译/运行截图，按主题命名。
-- `code/demoNN/`：每个知识点一对 `.c` / `.cpp`，内容一一对应，便于并排对比。
+- `code/demoNN/`：按知识点存放可运行的 `.c` / `.cpp`，便于并排对比。
+- 第 4 课的 `code/original/`：保留本课的原始 `.txt`，文件名中的 `_c` / `_cpp` 标记原实验的编译模式；不由 CMake 自动构建。
 - 第 2、3 课由课程测试代码摘取改写；第 1 课是仓库补充示例。
 
 示例中的“❌”注释表示该写法在当前语言中无法通过编译，保留在源码中是为了对照错误信息；实际参与构建的是注释外的合法代码。

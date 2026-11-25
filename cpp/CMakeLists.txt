@@ -15,7 +15,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(AddDemo)
 include(CTest)
 
-# 课程：狄泰《C++ 深度解析》第 1～3 课
+# 课程：狄泰《C++ 深度解析》第 1～4 课
 add_subdirectory(lessons/01-cpp-meaning/code)
 add_subdirectory(lessons/02-c-to-cpp/code)
 add_subdirectory(lessons/03-const/code)
+add_subdirectory(lessons/04-bool-and-reference/code)
