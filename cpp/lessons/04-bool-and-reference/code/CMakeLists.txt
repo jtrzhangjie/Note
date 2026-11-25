@@ -1,5 +1,4 @@
 # 第 4 课：布尔类型和引用
-# original/ 中的原始片段不参与默认构建。
 
 # 布尔类型参与算术运算
 cpp_add_demo(cpp04b_bool_arithmetic_c   demo01/bool_arithmetic.c)

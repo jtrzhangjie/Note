@@ -4,7 +4,7 @@
 
 - **第 1 课**：理论课，原课程没有测试代码；本仓库补充了一个 C/C++ 对照示例，仅用于直观对比。
 - **第 2、3 课**：将课程测试代码按知识点整理为可编译的 demo。
-- **第 4 课**：保留原始 `.txt` 实验，另提供可运行的 C/C++ 对照 demo。
+- **第 4 课**：按实验整理可运行的 C/C++ 对照 demo，并记录同一份源码在两种语言模式下的表现。
 
 每课包含：
 
@@ -45,7 +45,7 @@ cpp/
 │   └── 04-bool-and-reference/
 │       ├── README.md
 │       ├── images/             # 课件 slide-01 ~ slide-14
-│       └── code/               # original/ + demo01 ~ demo04
+│       └── code/demo01 ~ demo04
 ```
 
 早期工程的历史示例不再迁入，避免与已整理的课程混淆。
@@ -95,7 +95,7 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 - 第 1 课补充示例：2 个 target / 2 个测试。
 - 第 2 课：10 个 target / 10 个测试。
 - 第 3 课：6 个 target / 6 个测试。
-- 第 4 课：8 个 target / 8 个测试；故意未通过编译的原始片段不纳入默认构建。
+- 第 4 课：8 个 target / 8 个测试；C11 下预期的编译错误可按本课笔记单独复现。
 
 复现：
 
@@ -151,7 +151,6 @@ ctest --preset debug --output-on-failure
 - `images/slide-XX.png`：课程课件原图，按页码命名。
 - `images/shot-XX-*.png`：实机编译/运行截图，按主题命名。
 - `code/demoNN/`：按知识点存放可运行的 `.c` / `.cpp`，便于并排对比。
-- 第 4 课的 `code/original/`：保留本课的原始 `.txt`，文件名中的 `_c` / `_cpp` 标记原实验的编译模式；不由 CMake 自动构建。
 - 第 2、3 课由课程测试代码摘取改写；第 1 课是仓库补充示例。
 
 示例中的“❌”注释表示该写法在当前语言中无法通过编译，保留在源码中是为了对照错误信息；实际参与构建的是注释外的合法代码。
