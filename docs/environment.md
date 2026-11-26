@@ -115,6 +115,7 @@ cpp/lessons/01-cpp-meaning/
 cpp/lessons/02-c-to-cpp/
 cpp/lessons/03-const/
 cpp/lessons/04-bool-and-reference/
+cpp/lessons/05-reference-internals/
 ```
 
 虚拟机只负责编译和验证，内容以 Windows 侧 `F:\Note` 提交到 GitHub 的版本为准。

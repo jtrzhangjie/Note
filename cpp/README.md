@@ -1,10 +1,11 @@
 # C++ 课程笔记
 
-整理自狄泰软件《C++ 深度解析》第 1～4 课：
+整理自狄泰软件《C++ 深度解析》第 1～5 课：
 
 - **第 1 课**：理论课，原课程没有测试代码；本仓库补充了一个 C/C++ 对照示例，仅用于直观对比。
 - **第 2、3 课**：将课程测试代码按知识点整理为可编译的 demo。
 - **第 4 课**：按实验整理可运行的 C/C++ 对照 demo，并记录同一份源码在两种语言模式下的表现。
+- **第 5 课**：通过交换、`const` 引用、对象布局和返回值示例分析引用；故意写错的片段只用于笔记讲解。
 
 每课包含：
 
@@ -20,6 +21,7 @@
 | 02 | C 到 C++ 的升级 | [笔记](lessons/02-c-to-cpp/README.md) | [code](lessons/02-c-to-cpp/code) | register、全局变量、struct、函数声明 |
 | 03 | 进化后的 const 分析 | [笔记](lessons/03-const/README.md) | [code](lessons/03-const/code) | const 的本质、符号表、const 与宏 |
 | 04 | 布尔类型和引用 | [笔记](lessons/04-bool-and-reference/README.md) | [code](lessons/04-bool-and-reference/code) | `bool` 转换、条件表达式能否赋值、引用与指针 |
+| 05 | 引用的本质分析 | [笔记](lessons/05-reference-internals/README.md) | [code](lessons/05-reference-internals/code) | 引用参数、`const` 引用、`sizeof`、引用与对象生命周期 |
 
 ## 仓库结构
 
@@ -42,10 +44,14 @@ cpp/
 │   │   ├── README.md
 │   │   ├── images/
 │   │   └── code/demo01 ~ demo03
-│   └── 04-bool-and-reference/
+│   ├── 04-bool-and-reference/
+│   │   ├── README.md
+│   │   ├── images/             # 课件 slide-01 ~ slide-14
+│   │   └── code/demo01 ~ demo04
+│   └── 05-reference-internals/
 │       ├── README.md
-│       ├── images/             # 课件 slide-01 ~ slide-14
-│       └── code/demo01 ~ demo04
+│       ├── images/             # 课件 slide-01 ~ slide-13
+│       └── code/demo01 ~ demo05
 ```
 
 早期工程的历史示例不再迁入，避免与已整理的课程混淆。
@@ -88,7 +94,7 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 | 构建类型 | Debug（`-g`，无优化） |
 | 测试框架 | CTest |
 
-第 01–03 课于 2026-11-14 在该环境中验证通过（18/18）；第 04 课的验证与编译诊断见[本课笔记](lessons/04-bool-and-reference/README.md#验证记录)。
+第 01–03 课于 2026-11-14 在该环境中验证通过（18/18）；后续验证见[第 04 课](lessons/04-bool-and-reference/README.md#验证记录)和[第 05 课](lessons/05-reference-internals/README.md#验证记录)。
 
 各课的 CMake target / CTest 数量：
 
@@ -96,6 +102,7 @@ cmake --build --preset debug --target cpp02u_register_c cpp02u_register_cpp
 - 第 2 课：10 个 target / 10 个测试。
 - 第 3 课：6 个 target / 6 个测试。
 - 第 4 课：8 个 target / 8 个测试；C11 下预期的编译错误可按本课笔记单独复现。
+- 第 5 课：6 个 target / 6 个测试；错误示例不参与默认构建。
 
 复现：
 
@@ -117,6 +124,7 @@ ctest --preset debug --output-on-failure
 | `cpp02u_` | 第 2 课（upgrade） | `cpp02u_register_cpp` |
 | `cpp03c_` | 第 3 课（const） | `cpp03c_const_address_c` |
 | `cpp04b_` | 第 4 课（bool and reference） | `cpp04b_conditional_lvalue_cpp` |
+| `cpp05r_` | 第 5 课（reference internals） | `cpp05r_reference_return_cpp` |
 
 ## 新增一课
 

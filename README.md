@@ -6,7 +6,7 @@ Ubuntu 22.04 虚拟机 + JetBrains Gateway/CLion + CMake 的课程笔记与 demo
 
 | 课程 | 入口 | 当前进度 |
 |---|---|---|
-| C++ | [cpp/README.md](cpp/README.md) | 第 01–04 课 |
+| C++ | [cpp/README.md](cpp/README.md) | 第 01–05 课 |
 | 数据结构 | [data-structures/README.md](data-structures/README.md) | 待开始 |
 | Qt | [qt/README.md](qt/README.md) | 待开始 |
 | 网络 | [network/README.md](network/README.md) | 待开始 |
